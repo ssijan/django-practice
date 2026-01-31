@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SWIFTSHOP{% endblock %}</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* [PASTE ALL YOUR CSS FROM THE PREVIOUS HOME PAGE HERE] */
+        :root {
+            --primary: #1a1a1a;
+            --accent: #c6a664;
+            /* Gold-tinted accent for a premium feel */
+            --bg: #ffffff;
+            --text-muted: #757575;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(233, 208, 208, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2000;
+            border-bottom: 1px solid #f0f0f0;
+            box-shadow: 1px 1px #9f8e8e ;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .icons {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .icons a{
+            text-decoration: none;
+            background: #000000;
+            color: white;
+            padding: 0 5px 0 5px ;
+            border-radius: 3px;
+        }
+
+        .icons a:hover, a:active{
+            background: #464141;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            background: #f4f4f4;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .cta {
+            padding: 18px 45px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .cta:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 90%;
+            background: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80') center/cover;
+            filter: grayscale(20%);
+        }
+
+        /* --- Product Section --- */
+        .container {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .img-container {
+            overflow: hidden;
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        .img-container form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.9);
+        }
+
+        .card-info {
+            padding: 20px 0;
+        }
+
+        .card-info h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .price {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .quick-add {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: white;
+            color: black;
+            padding: 12px 25px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: var(--transition);
+            border: none;
+            width: 80%;
+        }
+
+        .card:hover .quick-add {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #111;
+            color: #888;
+            padding: 80px 5% 40px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-grid h4 {
+            color: white;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 900px) {
+
+            .nav-links,
+            .hero-image {
+                display: none;
+            }
+
+            .hero {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --accent: #c6a664;
+            --bg: #ffffff;
+        }
+
+        /* --- Search Bar --- */
+        .search-form {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e5e5e5;
+            border-radius: 50px;
+            overflow: hidden;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .search-form:hover,
+        .search-form:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-form input {
+            border: none;
+            outline: none;
+            padding: 12px 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            width: 180px;
+            color: var(--primary);
+        }
+
+        .search-form input::placeholder {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .search-form button {
+            border: none;
+            background: transparent;
+            padding: 12px 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .search-form button:hover {
+            color: var(--accent);
+        }
+
+        /* ... existing styles ... */
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">SWIFT<span>SHOP</span></div>
+
+        <form action="{% url 'search' %}" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search products..."
+                value="{{ request.GET.search|default:'' }}">
+            <button type="submit">SEARCH</button>
+        </form>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Journal</a></li>
+            <li><a href="{% url 'AboutUs' %}">About Us</a></li>
+        </ul>
+
+
+        <div class="icons">
+            <a href="{% url 'cart' %}">
+                CART ({{ request.session.cart|length|default:0 }})
+            </a>
+        </div>
+
+    </header>
+
+    {% block body %}
+    {% endblock %}
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="logo" style="color: white; margin-bottom: 20px;">SWIFT</div>
+                <p>Crafting modern essentials with a focus on quality and sustainability.</p>
+            </div>
+            <div>
+                <h4>Shop</h4>
+                <p>All Products</p>
+                <p>Best Sellers</p>
+                <p>Sale</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Shipping</p>
+                <p>Returns</p>
+                <p>Contact</p>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <p>Instagram</p>
+                <p>Pinterest</p>
+                <p>Twitter</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 SWIFTSHOP STUDIO. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+</body>
+
+</html>

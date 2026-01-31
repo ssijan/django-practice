@@ -1,0 +1,126 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Our Story & Team | SwiftShop{% endblock %}
+
+{% block body %}
+<style>
+    .about-hero {
+        text-align: center;
+        padding-top: 110px;
+        background-color: #fcfcfc;
+    }
+
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #1a1a1a;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        margin: 20px 0;
+    }
+
+    .team-card {
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .team-img {
+        width: 70%;
+        height: 300px;
+        object-fit: cover;
+        filter: grayscale(20%);
+    }
+
+    .map-container {
+        width: 100%;
+        height: 450px;
+        filter: grayscale(100%);
+        transition: filter 0.5s ease;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .map-container:hover {
+        filter: grayscale(0%);
+    }
+
+    .value-tag {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #888;
+        display: block;
+    }
+</style>
+
+<main>
+    <section class="about-hero">
+        <span class="value-tag">Est. 2026</span>
+        <h1 class="section-title">The Art of Simplicity</h1>
+        <p style="max-width: 700px; margin: 0 auto; color: #555; line-height: 1.8;">
+            SwiftShop was founded on the belief that everyday essentials should be designed with intent. 
+            We strip away the excess to focus on quality materials and timeless silhouettes.
+        </p>
+    </section>
+
+    <div class="container">
+        <section >
+            <div style="text-align: center; ">
+                <h2 class="section-title">Meet the Team</h2>
+                <p style="color: #777;">The minds behind the craft.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="CEO" class="team-img">
+                    <h3 style="font-size: 1.2rem; ">Julian Thorne</h3>
+                    <p class="value-tag" style="color: #000;">Founder & CEO</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80" alt="Lead Designer" class="team-img">
+                    <h3 style="font-size: 1.2rem; ">Amara Vance</h3>
+                    <p class="value-tag" style="color: #000;">Lead Designer</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Operations" class="team-img">
+                    <h3 style="font-size: 1.2rem; ">Marcus Chen</h3>
+                    <p class="value-tag" style="color: #000;">Head of Operations</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section>
+        <div style="text-align: center; ">
+            <h2 class="section-title">Our Studio</h2>
+            <p style="color: #777; margin-bottom: 4px;">Daffodil Smart City, Birulia 1216</p>
+        </div>
+        
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58373.739359028805!2d90.24394154863282!3d23.8768956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8ada2664e21%3A0x3c872fd17bc11ddb!2sDaffodil%20International%20University!5e0!3m2!1sen!2sbd!4v1769889763887!5m2!1sen!2sbd" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding: 100px 20px;">
+        <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 30px;">Want to join our journey?</h2>
+        <a href="{% url 'home' %}" class="cta" style="text-decoration: none; display: inline-block;">Continue Shopping</a>
+    </section>
+</main>
+{% endblock %}

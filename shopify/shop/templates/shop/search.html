@@ -1,0 +1,41 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Search | SwiftShop Essentials{% endblock %}
+
+{% block body %}
+<main class="container" id="collection">
+    <div class="section-header">
+        {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+        {% else %}
+        <h2>New Arrivals</h2>
+        {% endif %}
+        <p style="color: var(--text-muted); font-size: 0.9rem; cursor: pointer; border-bottom: 1px solid">View All</p>
+    </div>
+
+    <div class="grid">
+        {% for product in products %}
+        <div class="card">
+            <div class="img-container">
+                {% if product.image %}
+                <img src="{{product.image.url}}" alt="{{product.product_name}}">
+                {% else %}
+                <img src="https://via.placeholder.com/800x1000?text=No+Image" alt="Placeholder">
+                {% endif %}
+                <button class="quick-add">Quick Add +</button>
+            </div>
+            <div class="card-info">
+                <h3>{{product.product_name}}</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">{{product.desc|truncatewords:10}}</p>
+                <p class="price">${{product.price}}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+            <h3>No products found.</h3>
+            <p>Try searching for something else or check back later!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endblock %}

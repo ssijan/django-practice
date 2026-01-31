@@ -1,0 +1,71 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Your Bag | SwiftShop{% endblock %}
+
+{% block body %}
+<main class="container">
+    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 40px;">Your Bag</h2>
+
+    {% if cart_items %}
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 50px;">
+
+        <div class="cart-list" style="overflow: scroll; height: 450px; padding-right: 5px;">
+            {% for item in cart_items %}
+            <div style="display: flex; gap: 20px; border-bottom: 1px solid #eee; padding: 20px 0;">
+                <img src="{{ item.product.image.url }}" style="width: 120px; height: 150px; object-fit: cover;">
+                <div style="flex: 1;">
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">{{ item.product.product_name }}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Qty: {{ item.quantity }}</p>
+                    <p class="price">${{ item.product.price }}</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-weight: 600;">${{ item.total_price }}</p>
+
+                    <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 5px;">
+                        <a href="{% url 'DecreaseCart' item.product.id %}"
+                            style="text-decoration: none; padding: 2px 8px; border: 1px solid #ccc; color: black;">-</a>
+
+                        <span style="font-weight: bold;">{{ item.quantity }}</span>
+
+                        <a href="{% url 'IncreaseCart' item.product.id %}"
+                            style="text-decoration: none; padding: 2px 8px; border: 1px solid #ccc; color: black;">+</a>
+                    </div>
+                    
+                    <form action="{% url 'Remove' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button
+                        style="background: rgb(225, 46, 46); border-radius: 5px ; border: none; color: white; font-size: 0.9rem; cursor: pointer; margin-top: 10px; padding:5px 10px 5px 10px;">Remove</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-summary" style="background: #f9f9f9; padding: 30px; height: fit-content;">
+            <h4 style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Order Summary</h4>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Subtotal</span>
+                <span>${{ grand_total }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <span>Shipping</span>
+                <span style="color: green;">FREE</span>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin-bottom: 20px;">
+            <div
+                style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.2rem; margin-bottom: 30px;">
+                <span>Total</span>
+                <span>${{ grand_total }}</span>
+            </div>
+            <button class="cta" style="width: 100%; text-align: center;">Checkout</button>
+        </div>
+    </div>
+
+    {% else %}
+    <div style="text-align: center; padding: 100px 0;">
+        <p>Your bag is currently empty.</p>
+        <a href="{% url 'home' %}" class="cta" style="margin-top: 20px;">Continue Shopping</a>
+    </div>
+    {% endif %}
+</main>
+{% endblock %}

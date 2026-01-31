@@ -1,0 +1,63 @@
+
+{% extends 'shop/basic.html' %}
+
+{% block title %}Home | SwiftShop Essentials{% endblock %}
+
+{% block body %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Art of <br><em>Simplicity.</em></h1>
+            <p>Thoughtfully designed essentials for the modern wardrobe.</p>
+            <a href="#collection" class="cta">Discover Collection</a>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <main class="container" id="collection">
+        <div class="section-header">
+            <h2>New Arrivals</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; cursor: pointer; border-bottom: 1px solid">View All</p>
+        </div>
+        
+        <div class="grid">
+            {% for product in products %}
+
+            <div class="card" id="product-{{product.id}}">
+                <div class="img-container">
+                    <img src="{{product.image.url}}" alt="Linen Shirt">
+                    <form action="{% url 'AddToCart' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="quick-add">Quick Add +</button>
+                    </form>
+                </div>
+                <div class="card-info">
+                    <h3>{{product.product_name}}</h3>
+                    <h5>{{product.desc}}</h5>
+                    <p class="price">${{product.price}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80" alt="Wool Coat">
+                    <button class="quick-add">Quick Add +</button>
+                </div>
+                <div class="card-info">
+                    <h3>Structured Wool Coat</h3>
+                    <p class="price">$345.00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80" alt="Silk Dress">
+                    <button class="quick-add">Quick Add +</button>
+                </div>
+                <div class="card-info">
+                    <h3>Minimalist Silk Slip</h3>
+                    <p class="price">$210.00</p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
