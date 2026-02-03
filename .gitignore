@@ -1,14 +1,13 @@
-# Virtual environments
-venv/
-env/
-
-# Django files
-__pycache__/
+# This matches 'venv' in any subfolder
+**/venv/
+**/__pycache__/
 *.pyc
-db.sqlite3
 
-# Media files (User uploads)
-media/
+# This matches any sqlite3 database in any project
+**/*.sqlite3
+
+# This matches any media folder in any project
+**/media/
 
 # Environment variables
 .env
