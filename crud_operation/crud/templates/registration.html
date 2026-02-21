@@ -1,0 +1,68 @@
+{% extends 'basic.html' %}
+{% block title %} CRUD | Register Page {% endblock %}
+
+{% block body %}
+
+
+
+<main>
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+            <h3 class="text-center mb-4">Create Account</h3>
+
+            <div class="container mt-3">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Name</label>
+                    <input type="text" name="name" autofocus maxlength="150" required id="id_username"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" autofocus maxlength="150" required id="id_username"
+                        class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Password</label>
+                    <input type="password" name="password" required id="id_password" class="form-control">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="{% url 'login_page' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* This makes the Django default widgets look like Bootstrap inputs */
+    input {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: .375rem;
+    }
+</style>
+
+
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'basic.html' %}
+{% block title %} CRUD | Login Page {% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .login-container {
+        margin-top: 100px;
+        max-width: 400px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+
+
+<main>
+    <div class="container d-flex justify-content-center">
+        <div class="login-container w-100">
+            <div class="card p-4">
+                <h3 class="text-center mb-4">Sign In</h3>
+
+                <div class="container mt-3">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Username</label>
+                        <input type="text" name="username" autofocus maxlength="150" required id="id_username"
+                            class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        <input type="password" name="password" required id="id_password" class="form-control">
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+
+                <div class="text-center mt-3">
+                    <p class="small">Forgot password? Contact Admin.</p>
+                    <hr>
+                    <p class="mb-0">Back to <a href="{% url 'index' %}" class="text-decoration-none">Home</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock %}

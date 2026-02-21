@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-primary">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">MySite</a>
+
+      <!-- Mobile Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'result' %}">Result</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="content m-auto pb-5" style="width: 1100px; ">
+
+    <table class="table table-striped">
+      <thead class="table-primary">
+        <tr>
+          <th scope="col">Student ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
+          <th scope="col">Department</th>
+          <th scope="col">Email</th>
+          <th scope="col">Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in page_obj %}
+        <tr>
+          <td>{{d.student_id}}</td>
+          <td>{{d.student_name}}</td>
+          <td>{{d.student_age}}</td>
+          <td>{{d.department.department}}</td>
+          <td>{{d.student_email}}</td>
+          <td>{{d.student_address}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+
+    <!-- Previous Button -->
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">Previous</span>
+      </li>
+    {% endif %}
+
+    <!-- First Page -->
+    {% if page_obj.number > 2 %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">1</a>
+      </li>
+      {% if page_obj.number > 3 %}
+        <li class="page-item disabled">
+          <span class="page-link">…</span>
+        </li>
+      {% endif %}
+    {% endif %}
+
+    <!-- Middle Pages (Current ±1) -->
+    {% for num in page_obj.paginator.page_range %}
+      {% if num >= page_obj.number|add:"-1" %}
+        {% if num <= page_obj.number|add:"1" %}
+          
+          {% if page_obj.number == num %}
+            <li class="page-item active">
+              <span class="page-link">{{ num }}</span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+          {% endif %}
+          
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Last Page -->
+    {% if page_obj.number < page_obj.paginator.num_pages|add:"-1" %}
+      {% if page_obj.number < page_obj.paginator.num_pages|add:"-2" %}
+        <li class="page-item disabled">
+          <span class="page-link">…</span>
+        </li>
+      {% endif %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+          {{ page_obj.paginator.num_pages }}
+        </a>
+      </li>
+    {% endif %}
+
+    <!-- Next Button -->
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">Next</span>
+      </li>
+    {% endif %}
+
+  </ul>
+</nav>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

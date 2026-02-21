@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.student_name }} Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+        th { background-color: #444; color: #fff; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Result Report</h2>
+    <p><strong>Student ID:</strong> {{ student.student_id.student_id }}</p>
+    <p><strong>Name: </strong>{{ student.student_name }}</p>
+    <p><strong>Department:</strong> {{ student.department.department }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Mark</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in marks %}
+            <tr>
+                <td>{{ m.subject.subject }}</td>
+                <td>{{ m.mark }}</td>
+                <td>{{ m.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

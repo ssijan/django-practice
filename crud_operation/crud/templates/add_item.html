@@ -1,0 +1,38 @@
+{% extends 'basic.html' %}
+
+{% block title %} CRUD | Add Item {% endblock %}
+
+{% block body %}
+<main>
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+            <h3 class="text-center mb-4">Add Item</h3>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Product Name</label>
+                    <input type="text" name="name" autofocus maxlength="150" required id="id_username"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Description</label>
+                    <textarea class="form-control" name="desc" id="" ></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload Image</label>
+                    <input class="form-control" name="img" type="file" id="formFile">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock %}

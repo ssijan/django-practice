@@ -4,11 +4,7 @@
 {% block body %}
 <div class="container mt-4">
     <div class=" text-center mb-4">
-        
-        <h2 class="fw-bold">Available Products {% if val %} : {{val}} {% endif %}</h2>
-        {% if ln %}
-        <h5 > Found {{ln}} Products</h5>
-        {% endif %}
+        <h2 class="fw-bold">Available Products</h2>
         <hr>
         <!-- <a href="{% url 'add_item' %}" class="btn btn-primary">+ Add New Product</a> -->
     </div>
@@ -30,7 +26,7 @@
                     <p class="card-text text-muted">
                         <i class="bi bi-geo-alt"></i> {{info.desc}}<br>
                     </p>
-                    {% if user.is_authenticated %}
+                    
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <div class="btn-group">
                             <a href="{% url 'update_info' info.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
@@ -38,12 +34,11 @@
                         </div>
                         <span class="badge bg-info text-dark">User: @{{info.user.username}}</span>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
         {% empty %}
-        <div class="col-12 text-center w-50px m-auto py-5">
+        <div class="col-12 text-center py-5">
             <h3>No products found. Start by adding one!</h3>
         </div>
         {% endfor %}
