@@ -82,8 +82,8 @@ def login_page(request):
             messages.error(request, 'Invalid Username')
             return redirect('login_page')
         
-        user = authenticate(request, username = username, password = password)
-
+            user = authenticate(request, username = username, password = password)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect('index')

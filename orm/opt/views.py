@@ -1,10 +1,11 @@
 from .models import *
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from weasyprint import HTML
 from django.template.loader import render_to_string
 from django.db.models import Sum
+from .utils import *
 
 # Create your views here.
 def index(request):
@@ -72,10 +73,7 @@ def result(request):
         'rank': rank,
     })
 
-
-# Download Result in PDF
-def result_pdf(request, student_id):
-    # Fetch the student and marks
+def genrate_ruselt_pdf(student_id):
     student = get_object_or_404(Student, student_id__student_id=student_id)
     marks = student.studentmarks.all()
 
@@ -92,10 +90,21 @@ def result_pdf(request, student_id):
         'rank': rank,
     })
 
-    # Generate PDF
     pdf_file = HTML(string=html_string).write_pdf()
 
-    # Return as response
+    return pdf_file, student
+
+# Download Result in PDF
+def result_pdf(request, student_id):
+    pdf_file, student = genrate_ruselt_pdf(student_id)
+
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{student.student_name}_result.pdf"'
     return response
+
+
+def send_result_mail(request, student_id):
+    pdf_file, student = genrate_ruselt_pdf(student_id)
+    
+    send_mail_to_client(pdf_file, student)
+    return redirect('result')
