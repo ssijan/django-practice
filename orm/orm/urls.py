@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drfapi import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('opt/',include('opt.urls')),
+    path('drfapi2/',include('drfapi2.urls')),
+    path("api-auth/", include("rest_framework.urls")),
+    path('aiinfo/', views.aiquest_info),
+    path('aide/', views.aiquest_create),
 ]
